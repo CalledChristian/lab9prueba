@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inicio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+              crossorigin="anonymous">
+    </head>
+    <body>
+        <div class='container'>
+
+            <br>
+            <h1>Sign Up!</h1>
+            <h6>Es gratis y siempre lo será</h6>
+        </div>
+
+        <main>
+            <div class="container px-4 py-5">
+                <form method="post" class="col-4" onsubmit="return validarInicioSesion()">
+                    <div class="mb-3">
+                        <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <input name="apellido" type="text" class="form-control" id="apellido" placeholder="Apellido"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <input name="email" type="text" class="form-control" id="email" placeholder="Email"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <input name="email2" type="text" class="form-control" id="email2" placeholder="Vuelve a ingresar el correo electronico"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <input  name="contrasena" type="text" class="form-control" id="contrasena" placeholder="Password"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <input  name="fechanacimiento" type="date" class="form-control" id="fechanacimiento" placeholder="dd/mm/aaaa"/>
+                    </div>
+
+
+                    <a th:href="@{'/'}" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Agregar Cuenta</button>
+                </form>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
+
+        <!--javascript-->
+        <script>
+            function validarInicioSesion(){
+            var correo = document.getElementById("email").value
+            var contrasena = document.getElementById("contrasena").value
+
+            if( correo == undefined || contrasena==undefined){
+            //alert("El correo y contraseña no puden ser nulos")
+            return false;
+            }else{
+            return true;
+            }
+            }
+        </script>
+
+        <!--Importamos JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+
+                //obtener elementos
+
+                //Por ID
+                var elemento1 = $("#texto1");
+                //Por clase (la clase tbm puede tener nombre propio
+                var elemento2= $(".btn btn-outline-primary mt-4 mb-2 rounded-pill");
+
+                //Simil Para Funciones en JQUERY
+
+
+                //JavaScript
+                /*<button onclick='cambiarTexto()' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar Texto 2</button>
+
+                //funcion
+                function cambiarTexto(){
+                document.getElementById("texto1").innerHTML="<h3>Texto de Reemplazo 3</h3>";
+                } */
+
+                //JQUERY
+
+                /*<button id="cambiarTextoBtn" class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                   Cambiar Texto 3</button>*/
+
+                $("#cambiarTextoBtn").click(function (){
+                    $("#texto1").html("<h3>Texto de Reemplazo 4</h3>");
+                });
+
+                /*Ejm2
+                Se tiene un botón que agrega más botones.
+                Y Los nuevos botones van a tener la clase changeBg, para cambiar el fondo.
+                 */
+
+
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+                $("#addBtn").click(function () {
+                    //cuando se hace click al boton con id="addBtn"
+                    //entonces se agregará con "append" un boton de clase "changeBg" para cambiar
+                    //el color de fondo de la pagina
+                    $("body").append('<button class="changeBg">Cambiar fondo</button>');
+                });
+
+                /*$(".changeBg").click(function () {
+                    //cuando se hace en este boton de clase "changeBg" (por eso esta con punto .( ya que # es para ID)
+                    //entonces se modificará el color de fondo de la pagina , invocando la funcion que definimos
+                    //getRandomcColor() y la funcion "css" que modificará la pagina
+                    //el color de fondo de la pagina
+                    $("body").css('background-color', getRandomColor());
+                }); */
+
+                /*Pero al dar click a los nuevos botonos para cambiar el color de fondo NO pasa NADA
+                Esto se debe a que los elementos agregados dinámicamente tienen la clase “changeBg” y ésta clase está funcionando con el evento click(),
+                el cual sólo responde a los elementos iniciales del DOM (no a los agregados dinámicamente).
+
+                En caso se requiera manipular elementos agregados dinámicamente al DOM (como el ejemplo),
+                se debe usar la delegación de eventos por medio de la ""función on()"", la cual reconoce a los elementos agregados dinámicamente. */
+
+                $("body").on("click",".changeBg",function () {
+                    //cuando se hace en este boton de clase "changeBg" (por eso esta con punto .( ya que # es para ID)
+                    //entonces se modificará el color de fondo de la pagina , invocando la funcion que definimos
+                    //getRandomcColor() y la funcion "css" que modificará la pagina
+                    //el color de fondo de la pagina
+                    $("body").css('background-color', getRandomColor());
+                });
+
+
+                //Validacion de Formularios
+                $("form").submit(function (event) {
+                    event.preventDefault();
+                    //Para validar usamos la funcion val().
+                    var correo = $("#correo").val();
+                    var contrasena = $("#contrasena").val();
+
+                    if ((correo != "") && (contrasena  != "")) {
+                        //si no son nulos entonces retonramos
+                        return true;
+                    } else {
+                        //sino , se envia el mensaje de error
+                        $(".invalid-feedback").show(500).delay(1000).hide(500);
+                    }
+                });
+
+
+            });
+        </script>
+    </body>
+</html>
