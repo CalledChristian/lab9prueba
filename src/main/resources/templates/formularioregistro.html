@@ -23,16 +23,17 @@
                 <form method="post" class="col-4" onsubmit="return validarInicioSesion()">
                     <div class="mb-3">
                         <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"/>
-                        <span class="status">El nombre no puede tener numeros</span>
+                        <span class="status"></span>
                     </div>
 
                     <div class="mb-3">
                         <input name="apellido" type="text" class="form-control" id="apellido" placeholder="Apellido"/>
-                        <span class="status">El apellido no puede tener numeros</span>
+                        <span class="status"></span>
                     </div>
 
                     <div class="mb-3">
                         <input name="email" type="text" class="form-control" id="email" placeholder="Email"/>
+                        <span class="status"></span>
                     </div>
 
                     <div class="mb-3">
@@ -41,6 +42,7 @@
 
                     <div class="mb-3">
                         <input  name="contrasena" type="text" class="form-control" id="contrasena" placeholder="Password"/>
+                        <span class="status"></span>
                     </div>
 
                     <div class="mb-3">
@@ -98,7 +100,7 @@
                 var fechadenacimiento = document.getElementById("fechanacimiento").value;
 
                 if (nombre == "" || apellido == "" || correo == "" || correo2 == "" || contrasena == "" || fechadenacimiento == "") {
-                    alert("Debe llenar todos los Campos Faltante")
+                    alert("Debe llenar todos los Campos")
                     return false;
                 } else if (correo != correo2) {
                     alert("Los correos no son iguales")
@@ -247,9 +249,61 @@
                     if (input.match(regex)) {
                         $(this).next('.status').html('<img src="check.png" width="50rem" height="50rem">'); // Mostrar el plugin de check
                     } else {
+                        $(this).next('.status').html('<img src="check.png" width="50rem" height="50rem">'); // Mostrar el plugin de check
+                    }
+                });
+
+                $('#email').keyup(function() {
+                    var input = $(this).val();
+
+                    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+
+                    // Verifica si el campo está vacío o si no cumple con el formato de correo
+                    if (input.match(regex)) {
+                        $(this).next('.status').html('<img src="check.png" width="50rem" height="50rem">'); // Mostrar el plugin de check
+                    } else {
+                        $(this).next('.status').html('<img src="check.png" width="50rem" height="50rem">'); // Mostrar el plugin de check
+                    }
+
+                });
+
+                $('#contrasena').keyup(function() {
+                    var password = $(this).val();
+
+                    // Expresiones regulares para los requisitos de validación
+                    var regexUpperCase = /[A-Z]/;
+                    var regexSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+                    var regexConsecutiveChars = /(\w)\1/; // Busca caracteres consecutivos
+
+                    if (password.length >= 6 && regexUpperCase.test(password) && regexSpecialChar.test(password) && !regexConsecutiveChars.test(password)) {
+                        $(this).next('.status').html('<img src="check.png" width="50rem" height="50rem">'); // Mostrar el plugin de check
+                    } else {
                         $(this).next('.status').html('<img src="x.png" width="50rem" height="50rem">'); // Mostrar el plugin de X
                     }
                 });
+
+
+                    //Validacion de Formulario
+                    /*$('form').submit(function(e) {
+                    e.preventDefault(); // Evita que se envíe el formulario por defecto
+
+
+
+                    // Obtén el valor del campo de correo electrónico
+                    var correo = $('#email').val();
+
+                    // Expresión regular para validar el formato de correo electrónico
+                    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+
+                    // Verifica si el campo está vacío o si no cumple con el formato de correo
+                    if (correo === '' || !regex.test(correo)) {
+                        // Mostrar el plugin de X
+                        $('#validacion').html('<img src="x.png" width="50rem" height="50rem">');
+                    } else {
+                        // Mostrar el plugin de check
+                        $('#validacion').html('<img src=check.png" width="50rem" height="50rem">');
+                    }
+                });*/
 
 
             });
